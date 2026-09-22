@@ -1,0 +1,298 @@
+// Celestia — Premium Online Supermarket
+// Prisma schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Enums ----------
+
+enum AdminRole {
+  SUPER_ADMIN
+  PRODUCT_MANAGER
+  ORDER_MANAGER
+}
+
+enum DeliveryMethod {
+  STANDARD
+  EXPRESS
+  PICKUP
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  CLICK
+  PAYME
+  UZUM
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUND_PENDING
+  REFUNDED
+  CANCELLED
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  READY_FOR_PICKUP
+  DELIVERED
+  PICKED_UP
+  CANCELLED
+}
+
+enum PromoType {
+  PERCENT
+  FIXED
+}
+
+// ---------- Catalog ----------
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  name      String
+  nameRu    String?
+  nameEn    String?
+  icon      String    @default("🛒")
+  image     String?
+  sortOrder Int       @default(0)
+  visible   Boolean   @default(true)
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  sku         String   @unique
+  name        String
+  nameRu      String?
+  nameEn      String?
+  brand       String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  description String   @default("")
+  ingredients String   @default("")
+  nutrition   String   @default("")
+  weight      String
+  price       Int
+  oldPrice    Int?
+  discount    Int      @default(0)
+  stock       Int      @default(0)
+  rating      Float    @default(0)
+  ratingCount Int      @default(0)
+  isAvailable Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  image       String
+  images      ProductImage[]
+  reviews     Review[]
+  orderItems  OrderItem[]
+  cartItems   CartItem[]
+  wishlisted  WishlistItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  sortOrder Int     @default(0)
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  customerName String
+  rating       Int
+  comment      String   @default("")
+  createdAt    DateTime @default(now())
+}
+
+// ---------- Customers ----------
+
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  phone        String         @unique
+  email        String?
+  passwordHash String
+  addresses    Address[]
+  orders       Order[]
+  wishlist     WishlistItem[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label      String  @default("Uy")
+  city       String  @default("Toshkent")
+  district   String
+  street     String
+  house      String
+  apartment  String?
+  entrance   String?
+  floor      String?
+  note       String?
+  isDefault  Boolean @default(false)
+}
+
+model WishlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+// ---------- Cart (guest & user, cookie-based cartId) ----------
+
+model Cart {
+  id        String     @id @default(cuid())
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int     @default(1)
+
+  @@unique([cartId, productId])
+}
+
+// ---------- Orders ----------
+
+model Order {
+  id             String         @id @default(cuid())
+  orderNumber    String         @unique
+  userId         String?
+  user           User?          @relation(fields: [userId], references: [id])
+  customerName   String
+  phone          String
+  city           String         @default("Toshkent")
+  district       String?
+  street         String?
+  house          String?
+  apartment      String?
+  entrance       String?
+  floor          String?
+  comment        String?
+  deliveryMethod DeliveryMethod @default(STANDARD)
+  pickupLocationId String?
+  pickupLocation PickupLocation? @relation(fields: [pickupLocationId], references: [id])
+  deliveryFee    Int            @default(0)
+  subtotal       Int
+  discount       Int            @default(0)
+  promoCode      String?
+  total          Int
+  paymentMethod  PaymentMethod  @default(CASH)
+  paymentStatus  PaymentStatus  @default(PENDING)
+  orderStatus    OrderStatus    @default(NEW)
+  items          OrderItem[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+  name      String
+  image     String
+  weight    String
+  price     Int
+  quantity  Int
+}
+
+// ---------- Delivery & Promotions ----------
+
+model DeliveryZone {
+  id        String   @id @default(cuid())
+  name      String
+  minKm     Float
+  maxKm     Float
+  fee       Int
+  sortOrder Int      @default(0)
+}
+
+model PickupLocation {
+  id        String  @id @default(cuid())
+  name      String
+  address   String
+  openHours String
+  isActive  Boolean @default(true)
+  orders    Order[]
+}
+
+model PromoCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  type          PromoType @default(PERCENT)
+  value         Int
+  minOrder      Int       @default(0)
+  maxDiscount   Int?
+  expiresAt     DateTime?
+  usageLimit    Int?
+  usedCount     Int       @default(0)
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+}
+
+model Settings {
+  id                      String  @id @default("settings")
+  standardDeliveryFee     Int     @default(20000)
+  standardEtaMin          Int     @default(30)
+  standardEtaMax          Int     @default(90)
+  standardEnabled         Boolean @default(true)
+  expressDeliveryFee      Int     @default(35000)
+  expressEtaMin           Int     @default(15)
+  expressEtaMax           Int     @default(30)
+  expressEnabled          Boolean @default(true)
+  pickupEnabled           Boolean @default(true)
+  freeDeliveryThreshold   Int     @default(300000)
+  freeDeliveryEnabled     Boolean @default(true)
+  minOrderAmount          Int     @default(50000)
+  minOrderEnabled         Boolean @default(true)
+}
+
+// ---------- Admin ----------
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         AdminRole @default(PRODUCT_MANAGER)
+  createdAt    DateTime  @default(now())
+}
