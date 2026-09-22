@@ -20,24 +20,24 @@ const PAYMENT_TONE: Record<string, string> = {
 };
 
 const ORDER_LABELS: Record<string, string> = {
-  NEW: "Yangi",
-  CONFIRMED: "Qabul qilindi",
-  PREPARING: "Tayyorlanmoqda",
-  READY: "Tayyor",
-  OUT_FOR_DELIVERY: "Yetkazilmoqda",
-  READY_FOR_PICKUP: "Olib ketishga tayyor",
-  DELIVERED: "Yetkazildi",
-  PICKED_UP: "Olib ketildi",
-  CANCELLED: "Bekor qilindi",
+  NEW: "Новый",
+  CONFIRMED: "Подтверждён",
+  PREPARING: "Готовится",
+  READY: "Готов",
+  OUT_FOR_DELIVERY: "В пути",
+  READY_FOR_PICKUP: "Готов к самовывозу",
+  DELIVERED: "Доставлен",
+  PICKED_UP: "Забран",
+  CANCELLED: "Отменён",
 };
 
 const PAYMENT_LABELS: Record<string, string> = {
-  PENDING: "Kutilmoqda",
-  PAID: "To‘langan",
-  FAILED: "Muvaffaqiyatsiz",
-  REFUND_PENDING: "Qaytarish kutilmoqda",
-  REFUNDED: "Qaytarildi",
-  CANCELLED: "Bekor qilindi",
+  PENDING: "Ожидается",
+  PAID: "Оплачено",
+  FAILED: "Ошибка",
+  REFUND_PENDING: "Возврат ожидается",
+  REFUNDED: "Возвращено",
+  CANCELLED: "Отменено",
 };
 
 export function OrderStatusBadge({ status }: { status: string }) {

@@ -27,10 +27,10 @@ export default function RegisterPage() {
     setLoading(false);
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      setError(data.error === "phone_taken" ? "Bu telefon raqam allaqachon ro‘yxatdan o‘tgan." : "Ma’lumotlarni tekshiring (parol kamida 6 belgi).");
+      setError(data.error === "phone_taken" ? "Этот номер телефона уже зарегистрирован." : "Проверьте данные (пароль минимум 6 символов).");
       return;
     }
-    show("Ro‘yxatdan muvaffaqiyatli o‘tdingiz!");
+    show("Регистрация прошла успешно!");
     router.push("/account");
     router.refresh();
   }
@@ -41,12 +41,12 @@ export default function RegisterPage() {
         <Logo showTagline />
       </div>
       <div className="rounded-2xl border border-navy-900/8 bg-white p-7 shadow-sm">
-        <h1 className="mb-1 text-center font-display text-2xl font-semibold text-navy-900">Ro‘yxatdan o‘tish</h1>
+        <h1 className="mb-1 text-center font-display text-2xl font-semibold text-navy-900">Регистрация</h1>
         <p className="mb-6 text-center text-sm text-navy-900/50">Yangi hisob yarating</p>
 
         <form onSubmit={submit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Ism</label>
+            <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Имя</label>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -55,7 +55,7 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Telefon raqam</label>
+            <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Номер телефона</label>
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -65,7 +65,7 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Parol</label>
+            <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Пароль</label>
             <input
               type="password"
               value={password}
@@ -81,14 +81,14 @@ export default function RegisterPage() {
             disabled={loading}
             className="w-full rounded-full bg-navy-900 py-3 text-sm font-semibold text-white transition hover:bg-navy-700 disabled:opacity-50"
           >
-            {loading ? "..." : "Ro‘yxatdan o‘tish"}
+            {loading ? "..." : "Зарегистрироваться"}
           </button>
         </form>
 
         <p className="mt-5 text-center text-sm text-navy-900/55">
-          Hisobingiz bormi?{" "}
+          Уже есть аккаунт?{" "}
           <Link href="/login" className="font-medium text-navy-900 underline underline-offset-2">
-            Kirish
+            Войти
           </Link>
         </p>
       </div>

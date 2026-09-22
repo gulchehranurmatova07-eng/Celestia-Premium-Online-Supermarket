@@ -20,12 +20,12 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: "Celestia — Premium Online Supermarket",
-  description: "Har kuni kerakli mahsulotlar — bir joyda. Sifatli mahsulotlar, qulay narxlar va tezkor yetkazib berish.",
+  description: "Нужные продукты каждый день — в одном месте. Качественные продукты, удобные цены и быстрая доставка.",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const cookieStore = await cookies();
-  const locale = (cookieStore.get("celestia_locale")?.value as Locale) || "uz";
+  const locale = (cookieStore.get("celestia_locale")?.value as Locale) || "ru";
 
   return (
     <html lang={locale} className={`${inter.variable} ${fraunces.variable} h-full antialiased`}>

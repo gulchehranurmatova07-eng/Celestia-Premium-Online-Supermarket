@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div className="col-span-2">
             <Logo markClassName="h-9 w-9" showTagline className="[&_span]:text-white [&_span:last-child]:text-gold-400" />
-            <p className="mt-4 max-w-xs text-sm text-white/60">Har kuni kerakli mahsulotlar — bir joyda.</p>
+            <p className="mt-4 max-w-xs text-sm text-white/60">Нужные продукты каждый день — в одном месте.</p>
             <div className="mt-5 flex items-center gap-3">
               {["Instagram", "Telegram", "Facebook"].map((s) => (
                 <a
@@ -24,39 +24,39 @@ export function Footer() {
           </div>
 
           <FooterCol
-            title="Kompaniya"
+            title="Компания"
             links={[
-              { label: "Biz haqimizda", href: "/about" },
-              { label: "Aloqa", href: "/contact" },
-              { label: "Karyera", href: "/careers" },
+              { label: "О нас", href: "/about" },
+              { label: "Контакты", href: "/contact" },
+              { label: "Карьера", href: "/careers" },
             ]}
           />
           <FooterCol
-            title="Mijozlarga"
+            title="Клиентам"
             links={[
-              { label: "Yetkazib berish", href: "/delivery-info" },
-              { label: "To‘lov", href: "/delivery-info#payment" },
-              { label: "Savol-javob", href: "/faq" },
-              { label: "Qaytarish", href: "/faq#returns" },
+              { label: "Доставка", href: "/delivery-info" },
+              { label: "Оплата", href: "/delivery-info#payment" },
+              { label: "Вопросы и ответы", href: "/faq" },
+              { label: "Возврат", href: "/faq#returns" },
             ]}
           />
           <FooterCol
-            title="Kategoriyalar"
+            title="Категории"
             links={[
-              { label: "Oziq-ovqat", href: "/category/oziq-ovqat" },
-              { label: "Ichimliklar", href: "/category/ichimliklar" },
-              { label: "Sut mahsulotlari", href: "/category/sut-mahsulotlari" },
-              { label: "Maishiy mahsulotlar", href: "/category/maishiy" },
+              { label: "Бакалея", href: "/category/oziq-ovqat" },
+              { label: "Напитки", href: "/category/ichimliklar" },
+              { label: "Молочные продукты", href: "/category/sut-mahsulotlari" },
+              { label: "Хозтовары", href: "/category/maishiy" },
             ]}
           />
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Celestia. Barcha huquqlar himoyalangan.</span>
+          <span>© {new Date().getFullYear()} Celestia. Все права защищены.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span>+998 71 200 00 00</span>
             <span>hello@celestia.uz</span>
-            <span>Toshkent, Yunusobod tumani, Amir Temur ko‘chasi 108</span>
+            <span>Ташкент, Юнусабадский район, ул. Амира Темура, 108</span>
           </div>
         </div>
       </div>

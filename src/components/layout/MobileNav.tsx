@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLocale } from "@/i18n/LocaleProvider";
 
 type Cat = { slug: string; name: string; icon: string };
@@ -40,7 +39,7 @@ export function MobileNav({
           </button>
         </div>
 
-        <div className="flex items-center justify-between border-b border-navy-900/8 px-4 py-3">
+        <div className="border-b border-navy-900/8 px-4 py-3">
           <Link href={customerName ? "/account" : "/login"} onClick={onClose} className="flex items-center gap-2 text-sm font-medium text-navy-900">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <circle cx="12" cy="8" r="4" />
@@ -48,7 +47,6 @@ export function MobileNav({
             </svg>
             {customerName ? customerName.split(" ")[0] : t("account.login")}
           </Link>
-          <LanguageSwitcher compact />
         </div>
 
         <div className="px-4 py-3">

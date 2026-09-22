@@ -8,7 +8,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="rounded-2xl border border-navy-900/8 bg-white p-6">
-      <h1 className="mb-5 font-display text-2xl font-semibold text-navy-900">Profil</h1>
+      <h1 className="mb-5 font-display text-2xl font-semibold text-navy-900">Профиль</h1>
       <ProfileForm name={user!.name} phone={user!.phone} email={user!.email ?? ""} />
     </div>
   );

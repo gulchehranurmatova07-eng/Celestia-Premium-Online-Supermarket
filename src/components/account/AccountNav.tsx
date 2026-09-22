@@ -4,12 +4,12 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const LINKS = [
-  { href: "/account", label: "Profil", icon: "👤" },
-  { href: "/account/orders", label: "Buyurtmalarim", icon: "📦" },
-  { href: "/wishlist", label: "Sevimlilar", icon: "❤️" },
-  { href: "/account/addresses", label: "Manzillarim", icon: "📍" },
-  { href: "/account/payments", label: "To‘lov usullari", icon: "💳" },
-  { href: "/account/settings", label: "Sozlamalar", icon: "⚙️" },
+  { href: "/account", label: "Профиль", icon: "👤" },
+  { href: "/account/orders", label: "Мои заказы", icon: "📦" },
+  { href: "/wishlist", label: "Избранное", icon: "❤️" },
+  { href: "/account/addresses", label: "Мои адреса", icon: "📍" },
+  { href: "/account/payments", label: "Способы оплаты", icon: "💳" },
+  { href: "/account/settings", label: "Настройки", icon: "⚙️" },
 ];
 
 export function AccountNav({ name, phone }: { name: string; phone: string }) {
@@ -52,7 +52,7 @@ export function AccountNav({ name, phone }: { name: string; phone: string }) {
           className="mt-1 flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-red-500 transition hover:bg-red-50"
         >
           <span>🚪</span>
-          Chiqish
+          Выйти
         </button>
       </nav>
     </aside>

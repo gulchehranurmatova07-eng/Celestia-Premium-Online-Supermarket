@@ -8,7 +8,7 @@ export default async function AddressesPage() {
 
   return (
     <div>
-      <h1 className="mb-5 font-display text-2xl font-semibold text-navy-900">Manzillarim</h1>
+      <h1 className="mb-5 font-display text-2xl font-semibold text-navy-900">Мои адреса</h1>
       <AddressManager initialAddresses={addresses} />
     </div>
   );

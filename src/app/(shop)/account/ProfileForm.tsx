@@ -18,13 +18,13 @@ export function ProfileForm({ name, phone, email }: { name: string; phone: strin
       body: JSON.stringify({ name: formName, email: formEmail }),
     });
     setSaving(false);
-    if (res.ok) show("Ma’lumotlar saqlandi.");
+    if (res.ok) show("Данные сохранены.");
   }
 
   return (
     <form onSubmit={submit} className="max-w-md space-y-4">
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Ism</label>
+        <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Имя</label>
         <input
           value={formName}
           onChange={(e) => setFormName(e.target.value)}
@@ -32,7 +32,7 @@ export function ProfileForm({ name, phone, email }: { name: string; phone: strin
         />
       </div>
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Telefon raqam</label>
+        <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Номер телефона</label>
         <input disabled value={phone} className="w-full rounded-xl border border-navy-900/10 bg-cream-100 px-3.5 py-2.5 text-sm text-navy-900/50" />
       </div>
       <div>
@@ -50,7 +50,7 @@ export function ProfileForm({ name, phone, email }: { name: string; phone: strin
         disabled={saving}
         className="rounded-full bg-navy-900 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-700 disabled:opacity-50"
       >
-        {saving ? "..." : "Saqlash"}
+        {saving ? "..." : "Сохранить"}
       </button>
     </form>
   );

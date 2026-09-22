@@ -2,20 +2,20 @@ const DELIVERY_STEPS = ["NEW", "CONFIRMED", "PREPARING", "READY", "OUT_FOR_DELIV
 const PICKUP_STEPS = ["NEW", "CONFIRMED", "PREPARING", "READY_FOR_PICKUP", "PICKED_UP"];
 
 const LABELS: Record<string, string> = {
-  NEW: "Buyurtma qabul qilindi",
-  CONFIRMED: "Tasdiqlandi",
-  PREPARING: "Tayyorlanmoqda",
-  READY: "Tayyor",
-  OUT_FOR_DELIVERY: "Yetkazilmoqda",
-  DELIVERED: "Yetkazildi",
-  READY_FOR_PICKUP: "Olib ketishga tayyor",
-  PICKED_UP: "Olib ketildi",
+  NEW: "Заказ принят",
+  CONFIRMED: "Подтверждён",
+  PREPARING: "Готовится",
+  READY: "Готов",
+  OUT_FOR_DELIVERY: "В пути",
+  DELIVERED: "Доставлен",
+  READY_FOR_PICKUP: "Готов к самовывозу",
+  PICKED_UP: "Забран",
 };
 
 export function OrderTracker({ status, isPickup }: { status: string; isPickup: boolean }) {
   if (status === "CANCELLED") {
     return (
-      <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">Buyurtma bekor qilindi</div>
+      <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">Заказ отменён</div>
     );
   }
 

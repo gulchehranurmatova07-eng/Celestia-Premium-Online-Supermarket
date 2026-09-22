@@ -40,7 +40,7 @@ export default async function SearchPage({
       pageCount={result.pageCount}
       brands={result.brands}
       priceRange={result.priceRange}
-      heading={q ? `“${q}”` : "Qidiruv"}
+      heading={q ? `«${q}»` : "Поиск"}
       basePath="/search"
       currentParams={currentParams}
     />

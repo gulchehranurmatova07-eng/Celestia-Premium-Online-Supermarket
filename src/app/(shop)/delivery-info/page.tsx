@@ -8,31 +8,31 @@ export default async function DeliveryInfoPage() {
   const [settings, zones] = await Promise.all([getSettings(), getDeliveryZones()]);
 
   return (
-    <SimplePage title="Yetkazib berish va to‘lov">
-      <h2 className="font-display text-lg font-semibold text-navy-900">Yetkazib berish usullari</h2>
+    <SimplePage title="Доставка и оплата">
+      <h2 className="font-display text-lg font-semibold text-navy-900">Способы доставки</h2>
       <ul className="list-disc space-y-2 pl-5">
-        <li>Standart yetkazib berish — {formatSum(settings.standardDeliveryFee)}, {settings.standardEtaMin}–{settings.standardEtaMax} daqiqa</li>
-        <li>Tezkor yetkazib berish — {formatSum(settings.expressDeliveryFee)}, {settings.expressEtaMin}–{settings.expressEtaMax} daqiqa</li>
-        <li>Do‘kondan olib ketish — bepul</li>
+        <li>Стандартная доставка — {formatSum(settings.standardDeliveryFee)}, {settings.standardEtaMin}–{settings.standardEtaMax} минут</li>
+        <li>Экспресс-доставка — {formatSum(settings.expressDeliveryFee)}, {settings.expressEtaMin}–{settings.expressEtaMax} минут</li>
+        <li>Самовывоз из магазина — бесплатно</li>
       </ul>
       <p>
-        {formatSum(settings.freeDeliveryThreshold)} dan yuqori buyurtmalarda standart yetkazib berish bepul.
-        Minimal buyurtma summasi — {formatSum(settings.minOrderAmount)}.
+        При заказе от {formatSum(settings.freeDeliveryThreshold)} стандартная доставка бесплатна.
+        Минимальная сумма заказа — {formatSum(settings.minOrderAmount)}.
       </p>
 
-      <h2 className="mt-6 font-display text-lg font-semibold text-navy-900">Yetkazib berish hududlari</h2>
+      <h2 className="mt-6 font-display text-lg font-semibold text-navy-900">Зоны доставки</h2>
       <ul className="list-disc space-y-2 pl-5">
         {zones.map((z) => (
           <li key={z.id}>
-            {z.name} ({z.minKm}–{z.maxKm} km) — {formatSum(z.fee)}
+            {z.name} ({z.minKm}–{z.maxKm} км) — {formatSum(z.fee)}
           </li>
         ))}
       </ul>
 
       <h2 id="payment" className="mt-6 font-display text-lg font-semibold text-navy-900">
-        To‘lov usullari
+        Способы оплаты
       </h2>
-      <p>Naqd pul, Bank karta, Click, Payme va Uzum Bank orqali to‘lov qilishingiz mumkin.</p>
+      <p>Вы можете оплатить наличными, банковской картой, а также через Click, Payme и Uzum Bank.</p>
     </SimplePage>
   );
 }

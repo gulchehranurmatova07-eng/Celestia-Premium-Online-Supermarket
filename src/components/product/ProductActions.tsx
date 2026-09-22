@@ -38,7 +38,7 @@ export function ProductActions({ productId, stock, isAvailable }: { productId: s
     <div className="flex flex-col gap-4">
       {!outOfStock && (
         <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-navy-900/70">Miqdori:</span>
+          <span className="text-sm font-medium text-navy-900/70">Количество:</span>
           <div className="flex items-center rounded-full border border-navy-900/15">
             <button
               onClick={() => setLocalQty((q) => Math.max(1, q - 1))}

@@ -19,9 +19,9 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ o
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <div className="flex flex-col items-center text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-3xl">✅</div>
-        <h1 className="mt-4 font-display text-2xl font-semibold text-navy-900 sm:text-3xl">Buyurtmangiz qabul qilindi!</h1>
+        <h1 className="mt-4 font-display text-2xl font-semibold text-navy-900 sm:text-3xl">Ваш заказ принят!</h1>
         <p className="mt-2 text-navy-900/55">
-          Buyurtma raqami: <span className="font-semibold text-navy-900">{order.orderNumber}</span>
+          Номер заказа: <span className="font-semibold text-navy-900">{order.orderNumber}</span>
         </p>
       </div>
 
@@ -31,9 +31,9 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ o
         </div>
 
         <div className="flex flex-wrap items-center gap-2 border-t border-navy-900/8 pt-4">
-          <span className="text-sm text-navy-900/55">Holat:</span>
+          <span className="text-sm text-navy-900/55">Статус:</span>
           <OrderStatusBadge status={order.orderStatus} />
-          <span className="ml-4 text-sm text-navy-900/55">To‘lov:</span>
+          <span className="ml-4 text-sm text-navy-900/55">Оплата:</span>
           <PaymentStatusBadge status={order.paymentStatus} />
         </div>
 
@@ -54,28 +54,28 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ o
         </div>
 
         <div className="mt-4 space-y-2 border-t border-navy-900/8 pt-4 text-sm">
-          <Row label="Mahsulotlar" value={formatSum(order.subtotal)} />
-          {order.discount > 0 && <Row label="Chegirma" value={`−${formatSum(order.discount)}`} />}
-          <Row label="Yetkazib berish" value={order.deliveryFee === 0 ? "Bepul" : formatSum(order.deliveryFee)} />
+          <Row label="Товары" value={formatSum(order.subtotal)} />
+          {order.discount > 0 && <Row label="Скидка" value={`−${formatSum(order.discount)}`} />}
+          <Row label="Доставка" value={order.deliveryFee === 0 ? "Бесплатно" : formatSum(order.deliveryFee)} />
           <div className="flex justify-between border-t border-navy-900/8 pt-2 text-base font-semibold text-navy-900">
-            <span>Jami</span>
+            <span>Итого</span>
             <span>{formatSum(order.total)}</span>
           </div>
         </div>
 
         <div className="mt-5 grid grid-cols-1 gap-3 border-t border-navy-900/8 pt-4 text-sm sm:grid-cols-2">
           <div>
-            <div className="text-navy-900/45">Mijoz</div>
+            <div className="text-navy-900/45">Клиент</div>
             <div className="font-medium text-navy-900">{order.customerName} · {order.phone}</div>
           </div>
           <div>
             <div className="text-navy-900/45">
-              {order.deliveryMethod === "PICKUP" ? "Olib ketish manzili" : "Yetkazib berish manzili"}
+              {order.deliveryMethod === "PICKUP" ? "Адрес самовывоза" : "Адрес доставки"}
             </div>
             <div className="font-medium text-navy-900">
               {order.deliveryMethod === "PICKUP"
                 ? order.pickupLocation?.address
-                : `${order.city}, ${order.district}, ${order.street} ${order.house}${order.apartment ? `, kv. ${order.apartment}` : ""}`}
+                : `${order.city}, ${order.district}, ${order.street} ${order.house}${order.apartment ? `, кв. ${order.apartment}` : ""}`}
             </div>
           </div>
         </div>
@@ -83,10 +83,10 @@ export default async function OrderSuccessPage({ params }: { params: Promise<{ o
 
       <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
         <Link href="/account/orders" className="rounded-full bg-navy-900 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-navy-700">
-          Buyurtmalarimni ko‘rish
+          Посмотреть мои заказы
         </Link>
         <Link href="/" className="rounded-full border border-navy-900/15 px-6 py-3 text-center text-sm font-semibold text-navy-900 hover:bg-navy-900/5">
-          Xaridni davom ettirish
+          Продолжить покупки
         </Link>
       </div>
     </div>

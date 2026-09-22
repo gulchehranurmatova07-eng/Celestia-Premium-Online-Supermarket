@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLocale } from "@/i18n/LocaleProvider";
 
 const COLLAGE = [
-  { src: "/products/president-yogi.png", alt: "President Sariq Yog‘i" },
+  { src: "/products/president-yogi.png", alt: "Сливочное масло President" },
   { src: "/products/olma-1kg.png", alt: "Olma" },
   { src: "/products/coca-cola.png", alt: "Coca-Cola" },
   { src: "/products/nestle-sut.png", alt: "Nestlé Sut" },
@@ -48,9 +48,9 @@ export function Hero() {
           </div>
 
           <div className="mt-10 flex items-center gap-8 text-white/70">
-            <Stat value="1,200+" label="mahsulot" />
-            <Stat value="30 min" label="tezkor yetkazib berish" />
-            <Stat value="4.8★" label="mijozlar bahosi" />
+            <Stat value="1 200+" label="товаров" />
+            <Stat value="30 мин" label="быстрая доставка" />
+            <Stat value="4.8★" label="оценка клиентов" />
           </div>
         </div>
 
@@ -69,8 +69,8 @@ export function Hero() {
           <div className="absolute -bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-2xl bg-white px-5 py-3 shadow-xl">
             <span className="text-xl">🚚</span>
             <div className="text-left leading-tight">
-              <div className="text-sm font-semibold text-navy-900">Bugun yetkazib beramiz</div>
-              <div className="text-xs text-navy-900/50">30–90 daqiqada</div>
+              <div className="text-sm font-semibold text-navy-900">Доставим сегодня</div>
+              <div className="text-xs text-navy-900/50">за 30–90 минут</div>
             </div>
           </div>
         </div>

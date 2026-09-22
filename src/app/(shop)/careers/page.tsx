@@ -2,12 +2,12 @@ import { SimplePage } from "@/components/layout/SimplePage";
 
 export default function CareersPage() {
   return (
-    <SimplePage title="Karyera">
+    <SimplePage title="Карьера">
       <p>
-        Celestia jamoasiga qo‘shiling! Biz doimiy ravishda yetkazib beruvchi kuryerlar, ombor xodimlari va
-        mijozlarga xizmat ko‘rsatish bo‘limi uchun yangi hamkasblar qidiramiz.
+        Присоединяйтесь к команде Celestia! Мы постоянно ищем новых сотрудников — курьеров, сотрудников
+        склада и специалистов службы поддержки клиентов.
       </p>
-      <p>Bo‘sh ish o‘rinlari haqida ma’lumot olish uchun careers@celestia.uz manziliga rezyumeingizni yuboring.</p>
+      <p>Чтобы узнать о вакансиях, отправьте резюме на careers@celestia.uz.</p>
     </SimplePage>
   );
 }

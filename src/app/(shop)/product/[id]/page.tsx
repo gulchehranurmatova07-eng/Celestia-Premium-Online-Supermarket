@@ -36,7 +36,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <nav className="mb-6 flex items-center gap-1.5 text-sm text-navy-900/50">
         <Link href="/" className="hover:text-navy-900">
-          Bosh sahifa
+          Главная
         </Link>
         <span>/</span>
         <Link href={`/category/${product.category.slug}`} className="hover:text-navy-900">
@@ -59,7 +59,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <div className="mt-3 flex items-center gap-3">
             <Stars rating={product.rating} size={16} />
             <span className="text-sm text-navy-900/55">
-              {product.rating.toFixed(1)} · {product.ratingCount} {"sharh"}
+              {product.rating.toFixed(1)} · {product.ratingCount} {"отзывов"}
             </span>
           </div>
 
@@ -74,22 +74,22 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
           <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-y border-navy-900/8 py-5 text-sm">
             <div>
-              <dt className="text-navy-900/45">Og‘irligi</dt>
+              <dt className="text-navy-900/45">Вес</dt>
               <dd className="mt-0.5 font-medium text-navy-900">{product.weight}</dd>
             </div>
             <div>
-              <dt className="text-navy-900/45">Kategoriya</dt>
+              <dt className="text-navy-900/45">Категория</dt>
               <dd className="mt-0.5 font-medium text-navy-900">{product.category.name}</dd>
             </div>
             <div>
-              <dt className="text-navy-900/45">Mavjudligi</dt>
+              <dt className="text-navy-900/45">Наличие</dt>
               <dd className="mt-0.5 font-medium">
                 {product.stock <= 0 ? (
-                  <span className="text-red-600">🔴 Tugagan</span>
+                  <span className="text-red-600">🔴 Нет в наличии</span>
                 ) : product.stock <= 5 ? (
-                  <span className="text-amber-600">🟡 Faqat {product.stock} ta qoldi</span>
+                  <span className="text-amber-600">🟡 Осталось {product.stock} шт</span>
                 ) : (
-                  <span className="text-emerald-600">🟢 Mavjud</span>
+                  <span className="text-emerald-600">🟢 В наличии</span>
                 )}
               </dd>
             </div>
@@ -111,7 +111,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
       {related.length > 0 && (
         <section className="mt-16">
-          <h2 className="mb-5 font-display text-2xl font-semibold text-navy-900">O‘xshash mahsulotlar</h2>
+          <h2 className="mb-5 font-display text-2xl font-semibold text-navy-900">Похожие товары</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {related.map((p) => (
               <ProductCard key={p.id} product={p} />

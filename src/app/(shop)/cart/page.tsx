@@ -1,16 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cart";
 import { useCartProducts } from "@/store/useCartProducts";
 import { useSettings } from "@/store/useSettings";
 import { computeDeliveryFee, meetsMinOrder } from "@/lib/delivery";
 import { formatSum } from "@/lib/format";
 import { useLocale } from "@/i18n/LocaleProvider";
+import { useToast } from "@/components/ui/Toast";
 import { ProductCardSkeleton } from "@/components/product/ProductCard";
 
 export default function CartPage() {
   const { t } = useLocale();
+  const router = useRouter();
+  const { show } = useToast();
   const { lines, subtotal, loading } = useCartProducts();
   const setQty = useCartStore((s) => s.setQty);
   const remove = useCartStore((s) => s.remove);
@@ -115,20 +119,26 @@ export default function CartPage() {
           </div>
 
           {belowMin && settings && (
-            <p className="mt-3 text-xs font-medium text-red-600">
+            <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600">
               {t("cart.minOrder").replace("{amount}", formatSum(settings.minOrderAmount))}
             </p>
           )}
 
-          <Link
-            href="/checkout"
-            aria-disabled={belowMin}
+          <button
+            type="button"
+            onClick={() => {
+              if (belowMin && settings) {
+                show(t("cart.minOrder").replace("{amount}", formatSum(settings.minOrderAmount)), "error");
+                return;
+              }
+              router.push("/checkout");
+            }}
             className={`mt-5 block w-full rounded-full py-3.5 text-center text-sm font-semibold transition ${
-              belowMin ? "pointer-events-none bg-navy-900/15 text-navy-900/40" : "bg-navy-900 text-white hover:bg-navy-700"
+              belowMin ? "bg-navy-900/15 text-navy-900/40 hover:bg-navy-900/20" : "bg-navy-900 text-white hover:bg-navy-700"
             }`}
           >
             {t("cart.checkout")}
-          </Link>
+          </button>
         </div>
       </div>
     </div>

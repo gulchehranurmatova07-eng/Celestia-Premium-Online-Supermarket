@@ -43,7 +43,7 @@ export default function WishlistPage() {
       ) : visibleProducts.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-navy-900/15 py-24 text-center">
           <span className="text-4xl">🤍</span>
-          <p className="mt-3 text-navy-900/60">Sevimlilar ro‘yxati bo‘sh</p>
+          <p className="mt-3 text-navy-900/60">Список избранного пуст</p>
           <Link href="/search" className="mt-4 rounded-full bg-navy-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-navy-700">
             {t("cart.continueShopping")}
           </Link>

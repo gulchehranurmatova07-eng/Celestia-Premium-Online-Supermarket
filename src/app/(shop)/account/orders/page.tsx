@@ -14,13 +14,13 @@ export default async function OrdersPage() {
 
   return (
     <div>
-      <h1 className="mb-5 font-display text-2xl font-semibold text-navy-900">Buyurtmalarim</h1>
+      <h1 className="mb-5 font-display text-2xl font-semibold text-navy-900">Мои заказы</h1>
 
       {orders.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-navy-900/15 bg-white py-16 text-center">
-          <p className="text-navy-900/55">Hozircha buyurtmalar yo‘q</p>
+          <p className="text-navy-900/55">Пока нет заказов</p>
           <Link href="/search" className="mt-4 inline-block rounded-full bg-navy-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-navy-700">
-            Xarid qilish
+            Начать покупки
           </Link>
         </div>
       ) : (
@@ -35,7 +35,7 @@ export default async function OrdersPage() {
                 <div>
                   <span className="font-semibold text-navy-900">{order.orderNumber}</span>
                   <span className="ml-2 text-sm text-navy-900/45">
-                    {order.createdAt.toLocaleDateString("uz-UZ")}
+                    {order.createdAt.toLocaleDateString("ru-RU")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -53,7 +53,7 @@ export default async function OrdersPage() {
                 )}
               </div>
               <div className="mt-3 flex items-center justify-between border-t border-navy-900/8 pt-3">
-                <span className="text-sm text-navy-900/55">{order.items.length} mahsulot</span>
+                <span className="text-sm text-navy-900/55">{order.items.length} товара</span>
                 <span className="font-display font-semibold text-navy-900">{formatSum(order.total)}</span>
               </div>
             </Link>

@@ -85,12 +85,18 @@ export default function CheckoutPage() {
     e.preventDefault();
     setFormError("");
 
+    if (belowMin && settings) {
+      const msg = t("cart.minOrder").replace("{amount}", formatSum(settings.minOrderAmount));
+      setFormError(msg);
+      show(msg, "error");
+      return;
+    }
     if (deliveryMethod === "STANDARD" && !zoneId) {
       setFormError(t("checkout.zoneUnavailable"));
       return;
     }
     if (deliveryMethod === "PICKUP" && !pickupLocationId) {
-      setFormError("Iltimos, do‘kon filialini tanlang.");
+      setFormError("Пожалуйста, выберите филиал магазина.");
       return;
     }
 
@@ -102,7 +108,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           customerName: name,
           phone,
-          city: "Toshkent",
+          city: "Ташкент",
           district,
           street,
           house,
@@ -120,7 +126,7 @@ export default function CheckoutPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setFormError(data.error === "below_min_order" ? t("cart.minOrder").replace("{amount}", formatSum(data.minOrder)) : "Buyurtmani rasmiylashtirishda xatolik yuz berdi.");
+        setFormError(data.error === "below_min_order" ? t("cart.minOrder").replace("{amount}", formatSum(data.minOrder)) : "Ошибка при оформлении заказа.");
         setSubmitting(false);
         return;
       }
@@ -128,12 +134,12 @@ export default function CheckoutPage() {
       show(t("toast.orderPlaced"));
       router.push(`/checkout/success/${data.order.orderNumber}`);
     } catch {
-      setFormError("Tarmoq xatoligi. Qaytadan urinib ko‘ring.");
+      setFormError("Сетевая ошибка. Попробуйте ещё раз.");
       setSubmitting(false);
     }
   }
 
-  if (loading) return <div className="mx-auto max-w-4xl px-4 py-16 text-center text-navy-900/50">Yuklanmoqda...</div>;
+  if (loading) return <div className="mx-auto max-w-4xl px-4 py-16 text-center text-navy-900/50">Загрузка...</div>;
 
   if (lines.length === 0) {
     return (
@@ -162,21 +168,21 @@ export default function CheckoutPage() {
                 active={deliveryMethod === "STANDARD"}
                 onClick={() => setDeliveryMethod("STANDARD")}
                 title={t("checkout.standard")}
-                sub={settings ? `${settings.standardEtaMin}-${settings.standardEtaMax} daqiqa` : ""}
+                sub={settings ? `${settings.standardEtaMin}-${settings.standardEtaMax} минут` : ""}
                 price={settings ? formatSum(settings.standardDeliveryFee) : ""}
               />
               <DeliveryOption
                 active={deliveryMethod === "EXPRESS"}
                 onClick={() => setDeliveryMethod("EXPRESS")}
                 title={t("checkout.express")}
-                sub={settings ? `${settings.expressEtaMin}-${settings.expressEtaMax} daqiqa` : ""}
+                sub={settings ? `${settings.expressEtaMin}-${settings.expressEtaMax} минут` : ""}
                 price={settings ? formatSum(settings.expressDeliveryFee) : ""}
               />
               <DeliveryOption
                 active={deliveryMethod === "PICKUP"}
                 onClick={() => setDeliveryMethod("PICKUP")}
                 title={t("checkout.pickup")}
-                sub="Do‘kondan"
+                sub="Из магазина"
                 price={t("cart.freeDelivery")}
               />
             </div>
@@ -186,17 +192,17 @@ export default function CheckoutPage() {
             <Section title={t("checkout.deliveryAddress")}>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Hudud (yetkazib berish zonasi)</label>
+                  <label className="mb-1.5 block text-sm font-medium text-navy-900/70">Зона доставки</label>
                   <select
                     value={zoneId}
                     onChange={(e) => setZoneId(e.target.value)}
                     required
                     className="w-full rounded-xl border border-navy-900/15 px-3.5 py-2.5 text-sm outline-none focus:border-gold-500"
                   >
-                    <option value="">Tanlang...</option>
+                    <option value="">Выберите...</option>
                     {zones.map((z) => (
                       <option key={z.id} value={z.id}>
-                        {z.name} ({z.minKm}–{z.maxKm} km) — {formatSum(z.fee)}
+                        {z.name} ({z.minKm}–{z.maxKm} км) — {formatSum(z.fee)}
                       </option>
                     ))}
                   </select>
@@ -229,7 +235,7 @@ export default function CheckoutPage() {
                     <div>
                       <div className="font-medium text-navy-900">{loc.name}</div>
                       <div className="text-sm text-navy-900/55">{loc.address}</div>
-                      <div className="mt-0.5 text-xs text-navy-900/45">Ish vaqti: {loc.openHours}</div>
+                      <div className="mt-0.5 text-xs text-navy-900/45">Часы работы: {loc.openHours}</div>
                     </div>
                   </label>
                 ))}
@@ -242,7 +248,7 @@ export default function CheckoutPage() {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               rows={3}
-              placeholder="Qo‘shimcha izoh..."
+              placeholder="Дополнительный комментарий..."
               className="w-full rounded-xl border border-navy-900/15 px-3.5 py-2.5 text-sm outline-none focus:border-gold-500"
             />
           </Section>
@@ -265,7 +271,7 @@ export default function CheckoutPage() {
             </div>
             {paymentMethod !== "CASH" && (
               <p className="mt-3 rounded-lg bg-navy-900/5 px-3 py-2 text-xs text-navy-900/60">
-                ⚠️ {t("checkout.testMode")} — bu demo muhitda haqiqiy to‘lov amalga oshirilmaydi.
+                ⚠️ {t("checkout.testMode")} — в этом демо-режиме реальный платёж не выполняется.
               </p>
             )}
           </Section>
@@ -326,14 +332,18 @@ export default function CheckoutPage() {
             </div>
 
             {belowMin && settings && (
-              <p className="mt-3 text-xs font-medium text-red-600">{t("cart.minOrder").replace("{amount}", formatSum(settings.minOrderAmount))}</p>
+              <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600">
+                {t("cart.minOrder").replace("{amount}", formatSum(settings.minOrderAmount))}
+              </p>
             )}
             {formError && <p className="mt-3 text-xs font-medium text-red-600">{formError}</p>}
 
             <button
               type="submit"
-              disabled={submitting || belowMin}
-              className="mt-5 w-full rounded-full bg-navy-900 py-3.5 text-sm font-semibold text-white transition hover:bg-navy-700 disabled:cursor-not-allowed disabled:opacity-40"
+              disabled={submitting}
+              className={`mt-5 w-full rounded-full py-3.5 text-sm font-semibold transition disabled:cursor-not-allowed ${
+                belowMin ? "bg-navy-900/15 text-navy-900/40 hover:bg-navy-900/20" : "bg-navy-900 text-white hover:bg-navy-700 disabled:opacity-40"
+              }`}
             >
               {submitting ? "..." : t("checkout.placeOrder")}
             </button>

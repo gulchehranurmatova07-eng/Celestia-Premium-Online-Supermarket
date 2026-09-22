@@ -30,7 +30,7 @@ export function CategoryGrid({ categories }: { categories: Cat[] }) {
             </span>
             <div>
               <div className="text-sm font-medium text-navy-900">{c.name}</div>
-              <div className="mt-0.5 text-xs text-navy-900/45">{c.count} mahsulot</div>
+              <div className="mt-0.5 text-xs text-navy-900/45">{c.count} товаров</div>
             </div>
           </Link>
         ))}

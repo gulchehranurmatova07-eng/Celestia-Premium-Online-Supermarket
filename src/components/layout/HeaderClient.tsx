@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { SearchBar } from "./SearchBar";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MobileNav } from "./MobileNav";
 import { useCartStore } from "@/store/cart";
 import { useWishlistStore } from "@/store/wishlist";
@@ -23,10 +22,10 @@ export function HeaderClient({ categories, customerName }: { categories: Cat[]; 
       {/* Top utility bar - desktop only */}
       <div className="hidden border-b border-navy-900/6 bg-navy-900 text-white lg:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-1.5 text-xs">
-          <span className="text-gold-300">Har kuni kerakli mahsulotlar — bir joyda.</span>
+          <span className="text-gold-300">Нужные продукты каждый день — в одном месте.</span>
           <div className="flex items-center gap-4 text-white/80">
             <span>+998 71 200 00 00</span>
-            <span>Toshkent, Yunusobod tumani</span>
+            <span>Ташкент, Юнусабадский район</span>
           </div>
         </div>
       </div>
@@ -56,10 +55,6 @@ export function HeaderClient({ categories, customerName }: { categories: Cat[]; 
         </div>
 
         <div className="ml-auto flex items-center gap-1 lg:ml-0 lg:gap-2">
-          <div className="hidden lg:block">
-            <LanguageSwitcher />
-          </div>
-
           <Link
             href="/wishlist"
             className="relative hidden h-10 w-10 items-center justify-center rounded-full text-navy-900 transition hover:bg-navy-900/5 lg:flex"

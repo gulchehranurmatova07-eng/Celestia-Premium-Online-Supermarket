@@ -2,18 +2,18 @@ import { SimplePage } from "@/components/layout/SimplePage";
 
 export default function AboutPage() {
   return (
-    <SimplePage title="Biz haqimizda">
+    <SimplePage title="О нас">
       <p>
-        Celestia — O‘zbekiston mijozlari uchun yaratilgan premium onlayn supermarket. Bizning maqsadimiz —
-        sifatli mahsulotlarni qulay narxlarda, tez va ishonchli tarzda uyingizgacha yetkazib berish.
+        Celestia — премиальный онлайн-супермаркет, созданный для клиентов Узбекистана. Наша цель —
+        доставлять качественные продукты по удобным ценам быстро и надёжно прямо до вашего дома.
       </p>
       <p>
-        2026-yilda tashkil etilgan Celestia bugungi kunda minglab mahsulotlarni o‘z ichiga olgan katalog,
-        zamonaviy ombor infratuzilmasi va professional yetkazib berish xizmati bilan faoliyat yuritadi.
+        Основанная в 2026 году, Celestia сегодня работает с каталогом из тысяч товаров, современной
+        складской инфраструктурой и профессиональной службой доставки.
       </p>
       <p>
-        Har kuni kerakli mahsulotlar — bir joyda. Bu bizning shiorimiz emas, balki har bir mijozga bergan
-        va’damiz.
+        Нужные продукты каждый день — в одном месте. Это не просто наш девиз, а обещание, которое мы
+        даём каждому клиенту.
       </p>
     </SimplePage>
   );
