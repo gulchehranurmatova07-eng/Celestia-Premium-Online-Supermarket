@@ -62,9 +62,9 @@ export async function searchProducts(query: ProductQuery) {
       query.q
         ? {
             OR: [
-              { name: { contains: query.q } },
-              { brand: { contains: query.q } },
-              { description: { contains: query.q } },
+              { name: { contains: query.q, mode: "insensitive" } },
+              { brand: { contains: query.q, mode: "insensitive" } },
+              { description: { contains: query.q, mode: "insensitive" } },
             ],
           }
         : {},

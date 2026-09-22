@@ -25,7 +25,15 @@ export default async function AdminOrdersPage({
   const orders = await db.order.findMany({
     where: {
       AND: [
-        q ? { OR: [{ orderNumber: { contains: q } }, { customerName: { contains: q } }, { phone: { contains: q } }] } : {},
+        q
+          ? {
+              OR: [
+                { orderNumber: { contains: q, mode: "insensitive" } },
+                { customerName: { contains: q, mode: "insensitive" } },
+                { phone: { contains: q, mode: "insensitive" } },
+              ],
+            }
+          : {},
         status ? { orderStatus: status as never } : {},
       ],
     },

@@ -16,7 +16,15 @@ export default async function AdminProductsPage({
   const products = await db.product.findMany({
     where: {
       AND: [
-        q ? { OR: [{ name: { contains: q } }, { sku: { contains: q } }, { brand: { contains: q } }] } : {},
+        q
+          ? {
+              OR: [
+                { name: { contains: q, mode: "insensitive" } },
+                { sku: { contains: q, mode: "insensitive" } },
+                { brand: { contains: q, mode: "insensitive" } },
+              ],
+            }
+          : {},
         stock === "low" ? { stock: { gt: 0, lte: 5 } } : {},
         stock === "out" ? { stock: { lte: 0 } } : {},
       ],
