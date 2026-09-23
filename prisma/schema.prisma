@@ -2,8 +2,11 @@
 // Prisma schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
+  runtime         = "nodejs"
+  engineType      = "client"
 }
 
 datasource db {
