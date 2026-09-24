@@ -324,9 +324,9 @@ async function main() {
 
   const customerPassword = await bcrypt.hash("customer123", 10);
   const demoUser = await db.user.upsert({
-    where: { phone: "+998901234567" },
+    where: { phone: "+998953278474" },
     update: {},
-    create: { name: "Мустафо Алиев", phone: "+998901234567", email: "mustafo@example.com", passwordHash: customerPassword },
+    create: { name: "Мустафо Алиев", phone: "+998953278474", email: "mustafo@example.com", passwordHash: customerPassword },
   });
 
   const existingAddr = await db.address.findFirst({ where: { userId: demoUser.id } });
