@@ -1,8 +1,10 @@
 import "dotenv/config";
 import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
-const db = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const db = new PrismaClient({ adapter });
 
 const CATEGORIES = [
   { slug: "sut-mahsulotlari", name: "Молочные продукты", nameRu: "Молочные продукты", nameEn: "Dairy", icon: "🥛", sortOrder: 1 },
