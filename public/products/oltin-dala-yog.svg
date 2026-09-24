@@ -12,6 +12,6 @@
   <rect width="600" height="600" rx="36" fill="url(#g)"/>
   <rect width="600" height="600" rx="36" fill="url(#glow)"/>
   <circle cx="300" cy="270" r="150" fill="#faf7f0" fill-opacity="0.08"/>
-  <text x="300" y="325" font-size="200" text-anchor="middle" dominant-baseline="middle">#c9a04f</text>
+  <text x="300" y="325" font-size="200" text-anchor="middle" dominant-baseline="middle">🌻</text>
   <rect x="0" y="520" width="600" height="80" fill="#0b1e3d" fill-opacity="0.15"/>
 </svg>
