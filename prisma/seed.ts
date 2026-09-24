@@ -421,7 +421,7 @@ async function main() {
 
   console.log("Seed complete.");
   console.log("Admin login: admin@celestia.uz / Celestia2026!");
-  console.log("Demo customer: +998901234567 / customer123");
+  console.log("Demo customer: +998953278474 / customer123");
 }
 
 main()
